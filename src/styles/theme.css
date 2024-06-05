@@ -1,0 +1,21 @@
+@import './reset.css';
+@import url('https://fonts.googleapis.com/css2?family=Sansita:ital,wght@0,400;0,700;0,800;0,900;1,400;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Kavoon&family=Sansita:ital,wght@0,400;0,700;0,800;0,900;1,400;1,700;1,800;1,900&display=swap');
+
+@font-face {
+  font-family: 'TTLaundryGothicB';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2403-2@1.0/TTLaundryGothicB.woff2')
+    format('woff2');
+}
+
+:root {
+  --title: 'Kavoon';
+  --font: 'TTLaundryGothicB';
+  --red: #cd4b41;
+  --yellow: #edbe6a;
+  --green: #589c8d;
+  --blue: #5a79ad;
+  --ivory: #fef7e5;
+  --black: #000000;
+  --white: #ffffff;
+}
