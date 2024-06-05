@@ -1,18 +1,20 @@
 import { useEffect } from 'react';
 import gsap from 'gsap';
-import { useGSAP } from '@gsap/react';
 import styled from '@emotion/styled';
+import selectClassElement from '../utils/selectClassElement';
 
 const Logo = () => {
-  gsap.registerPlugin(useGSAP);
   useEffect(() => {
     const gsapTimeLine = gsap.timeline();
-    const selectTarget = (target: string) =>
-      document.querySelectorAll(`.${target}`);
     const elements = ['one', 'two', 'three', 'four', 'five', 'six'];
+
     elements.forEach((ele) => {
       const stagger = ele === 'four' ? 0.1 : 0.3;
-      gsapTimeLine.fromTo(selectTarget(ele), { y: -400 }, { y: 0, stagger });
+      gsapTimeLine.fromTo(
+        selectClassElement(ele),
+        { y: -400 },
+        { y: 0, stagger }
+      );
     });
   }, []);
 
