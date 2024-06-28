@@ -1,9 +1,29 @@
-import { useEffect } from 'react';
+import { useEffect, useRef, forwardRef, useImperativeHandle } from 'react';
 import gsap from 'gsap';
 import styled from '@emotion/styled';
 import selectClassElement from '../utils/selectClassElement';
 
-const Logo = () => {
+const Logo = forwardRef((props, ref) => {
+  const leverRef = useRef(null);
+
+  useImperativeHandle(ref, () => clickHandlerLogo);
+
+  const clickHandlerLogo = (callback) => {
+    gsap.fromTo(
+      leverRef.current,
+      {
+        rotation: 0,
+        transformOrigin: 'center center',
+      },
+      {
+        rotation: 360,
+        transformOrigin: 'center center',
+        duration: 1,
+        onComplete: callback,
+      }
+    );
+  };
+
   useEffect(() => {
     const gsapTimeLine = gsap.timeline();
     const elements = ['one', 'two', 'three', 'four', 'five', 'six'];
@@ -261,6 +281,7 @@ const Logo = () => {
           />
           <rect
             className="two lever"
+            ref={leverRef}
             x={77.6748}
             y={259.601}
             width={33.9045}
@@ -273,7 +294,7 @@ const Logo = () => {
       </LogoContent>
     </LogoCover>
   );
-};
+});
 
 export default Logo;
 
