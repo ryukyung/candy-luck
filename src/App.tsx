@@ -1,16 +1,27 @@
 import styled from '@emotion/styled';
 import Logo from './components/Logo';
 import Button from './components/Button';
+import Modal from './components/Modal';
+import { useRef, useState } from 'react';
 
 const App = () => {
-  const clickHandler = () => console.log('뽑기');
+  const [isOpenModal, setIsOpenModal] = useState(false);
+  const logoRef = useRef(null);
+  const clickHandler = () => {
+    if (logoRef.current) logoRef.current(() => setIsOpenModal(true));
+  };
+
   return (
     <>
       <MainStyled>
+        {isOpenModal && <Modal />}
+        {isOpenModal && <ModalBg />}
         <MainContentStyled>
           <h1>Candy Luck</h1>
-          <Logo />
-          <Button clickHandler={clickHandler}>뽑기</Button>
+          <Logo ref={logoRef} />
+          <Button target="main" clickHandler={clickHandler}>
+            뽑기
+          </Button>
         </MainContentStyled>
       </MainStyled>
     </>
@@ -18,6 +29,17 @@ const App = () => {
 };
 
 export default App;
+
+const ModalBg = styled.div`
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+`;
 
 const MainStyled = styled.main`
   width: 100vw;
