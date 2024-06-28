@@ -4,20 +4,20 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCamera, faShare } from '@fortawesome/free-solid-svg-icons';
 import { weatherInfo } from '../utils/weatherInfo';
 import HiddenComponent from './HiddenComponent';
+import getToday from '../utils/getToday';
+import { getWeather } from '../utils/getWeather';
+
+const weather = (await getWeather()).toLowerCase();
 
 const Modal = () => {
-  const weather = 'clouds';
-  const { description, ...restProps } = weatherInfo[weather];
+  const { description, ...restProps } = weatherInfo[weather] || {};
 
   const clickHandler = () => {
     console.log('yes');
   };
-  const dateData = {
-    year: 2024,
-    month: 6,
-    day: 7,
-    date: '금',
-  };
+
+  const dateData = getToday();
+
   return (
     <ModalStyled>
       <h2>
@@ -25,9 +25,9 @@ const Modal = () => {
         <b>년</b>
         <span>{dateData.month}</span>
         <b>월</b>
-        <span>{dateData.day}</span>
-        <b>일</b>
         <span>{dateData.date}</span>
+        <b>일</b>
+        <span>{dateData.day}</span>
         <b>요일</b>
         <HiddenComponent {...restProps} />
       </h2>
@@ -73,11 +73,11 @@ const ModalStyled = styled.dialog`
     padding-top: 8px;
     font-size: 26px;
     b {
-      margin-right: 8px;
+      margin-right: 4px;
     }
-    img {
-      height: 24px;
-    }
+  }
+  img {
+    height: 24px;
   }
   .description {
     display: block;

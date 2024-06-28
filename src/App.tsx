@@ -3,12 +3,17 @@ import Logo from './components/Logo';
 import Button from './components/Button';
 import Modal from './components/Modal';
 import { useRef, useState } from 'react';
-
+import { findLocation } from './utils/getWeather';
 const App = () => {
   const [isOpenModal, setIsOpenModal] = useState(false);
   const logoRef = useRef(null);
-  const clickHandler = () => {
-    if (logoRef.current) logoRef.current(() => setIsOpenModal(true));
+  const clickHandler = async () => {
+    try {
+      await findLocation();
+      if (logoRef.current) logoRef.current(() => setIsOpenModal(true));
+    } catch (error) {
+      console.error(`Error getting location: ${error}`);
+    }
   };
 
   return (
