@@ -27,7 +27,7 @@ const Modal = () => {
   };
 
   return (
-    <ModalStyled id="download">
+    <ModalStyled>
       <h2>
         <span>{dateData.year}</span>
         <b>년</b>
