@@ -1,22 +1,29 @@
 import styled from '@emotion/styled';
-import Button from './Button';
+import { useLocation } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCamera, faShare } from '@fortawesome/free-solid-svg-icons';
-import { weatherInfo } from '../utils/weatherInfo';
-import HiddenComponent from './HiddenComponent';
-import getToday from '../utils/getToday';
 import { getWeather } from '../utils/getWeather';
+import { weatherInfo } from '../utils/weatherInfo';
+import getToday from '../utils/getToday';
+import copyUrl from '../utils/copyUrl';
+import HiddenComponent from './HiddenComponent';
+import Button from './Button';
 
 const weather = (await getWeather()).toLowerCase();
 
 const Modal = () => {
   const { description, ...restProps } = weatherInfo[weather] || {};
+  const dateData = getToday();
+  const location = useLocation();
 
-  const clickHandler = () => {
-    console.log('yes');
+  const clickCopyButton = () => {
+    const baseUrl = 'http://localhost:5173';
+    copyUrl(`${baseUrl}${location.pathname}`);
   };
 
-  const dateData = getToday();
+  const clickSaveButton = () => {
+    console.log('저장하기 버튼 클릭');
+  };
 
   return (
     <ModalStyled>
@@ -40,11 +47,11 @@ const Modal = () => {
         <span className="description">중꺾마..중요한건 꺾이지 않는 마음</span>
       </p>
       <div className="button-cover">
-        <Button target="modal" clickHandler={clickHandler}>
+        <Button target="modal" clickHandler={clickCopyButton}>
           <FontAwesomeIcon icon={faShare} />
           공유하기
         </Button>
-        <Button target="modal" clickHandler={clickHandler}>
+        <Button target="modal" clickHandler={clickSaveButton}>
           <FontAwesomeIcon icon={faCamera} />
           저장하기
         </Button>
