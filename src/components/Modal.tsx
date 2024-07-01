@@ -9,8 +9,10 @@ import copyUrl from '../utils/copyUrl';
 import HiddenComponent from './HiddenComponent';
 import Button from './Button';
 import saveImage from '../utils/saveImage';
+import { getLuck } from '../utils/todayLuck';
 
 const weather = (await getWeather()).toLowerCase();
+const luck = getLuck();
 
 const Modal = () => {
   const { description, ...restProps } = weatherInfo[weather] || {};
@@ -45,7 +47,7 @@ const Modal = () => {
       </p>
       <p>
         <span>[오늘의 운세]</span>
-        <span className="description">중꺾마..중요한건 꺾이지 않는 마음</span>
+        <span className="description">{luck}</span>
       </p>
       <div className="button-cover">
         <Button target="modal" clickHandler={clickCopyButton}>
