@@ -18,7 +18,7 @@ const App = () => {
 
   return (
     <>
-      <MainStyled>
+      <MainStyled id="download">
         {isOpenModal && <Modal />}
         {isOpenModal && <ModalBg />}
         <MainContentStyled>
