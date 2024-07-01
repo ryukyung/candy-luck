@@ -8,6 +8,7 @@ import getToday from '../utils/getToday';
 import copyUrl from '../utils/copyUrl';
 import HiddenComponent from './HiddenComponent';
 import Button from './Button';
+import saveImage from '../utils/saveImage';
 
 const weather = (await getWeather()).toLowerCase();
 
@@ -22,11 +23,11 @@ const Modal = () => {
   };
 
   const clickSaveButton = () => {
-    console.log('저장하기 버튼 클릭');
+    saveImage();
   };
 
   return (
-    <ModalStyled>
+    <ModalStyled id="download">
       <h2>
         <span>{dateData.year}</span>
         <b>년</b>
