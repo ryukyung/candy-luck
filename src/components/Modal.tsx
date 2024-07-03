@@ -4,29 +4,26 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCamera, faShare } from '@fortawesome/free-solid-svg-icons';
 import { getWeather } from '../utils/getWeather';
 import { weatherInfo } from '../utils/weatherInfo';
-import getToday from '../utils/getToday';
 import copyUrl from '../utils/copyUrl';
 import HiddenComponent from './HiddenComponent';
 import Button from './Button';
 import saveImage from '../utils/saveImage';
-import { getLuck } from '../utils/todayLuck';
+import { checkTodayLuck } from '../utils/todayLuck';
+import { getDate } from '../utils/getToday';
 
 const weather = (await getWeather()).toLowerCase();
-const luck = getLuck();
 
 const Modal = () => {
   const { description, ...restProps } = weatherInfo[weather] || {};
-  const dateData = getToday();
   const location = useLocation();
+  const dateData = getDate();
 
-  const clickCopyButton = () => {
-    const baseUrl = 'http://localhost:5173';
-    copyUrl(`${baseUrl}${location.pathname}`);
-  };
+  const clickCopyButton = () =>
+    copyUrl(`http://localhost:5173${location.pathname}`);
 
-  const clickSaveButton = () => {
-    saveImage();
-  };
+  const clickSaveButton = () => saveImage();
+
+  const luck = checkTodayLuck();
 
   return (
     <ModalStyled>
