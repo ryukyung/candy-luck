@@ -23,7 +23,7 @@ const App = () => {
         {isOpenModal && <Modal />}
         {isOpenModal && <ModalBg />}
         <MainContentStyled>
-          <h1>Candy Luck</h1>
+          <h1 lang="en">Candy Luck</h1>
           <Logo ref={logoRef} />
           <Button target="main" clickHandler={clickHandler}>
             뽑기
