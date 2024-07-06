@@ -1,4 +1,14 @@
-export const weatherInfo = {
+type Tweather = {
+  imageSrc: string;
+  imageAlt: string;
+  description: string;
+};
+
+type TweatherList = {
+  [key: string]: Tweather;
+};
+
+export const weatherList: TweatherList = {
   clear: {
     imageSrc: '/public/clear.png',
     imageAlt: '',
