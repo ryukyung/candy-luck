@@ -1,5 +1,4 @@
 import styled from '@emotion/styled';
-import { useLocation } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCamera, faShare } from '@fortawesome/free-solid-svg-icons';
 import { getWeather } from '../utils/getWeather';
@@ -15,14 +14,11 @@ const weather = (await getWeather()).toLowerCase();
 
 const Modal = () => {
   const { description, ...restProps } = weatherInfo[weather] || {};
-  const location = useLocation();
   const dateData = getDate();
 
-  const clickCopyButton = () =>
-    copyUrl(`http://localhost:5173${location.pathname}`);
+  const clickCopyButton = () => copyUrl();
 
   const clickSaveButton = () => saveImage();
-
   const luck = checkTodayLuck();
 
   return (
