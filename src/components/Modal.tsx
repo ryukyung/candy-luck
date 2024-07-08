@@ -8,16 +8,27 @@ import { weatherList } from '../utils/weatherList';
 import { checkTodayLuck } from '../utils/todayLuck';
 import copyUrl from '../utils/copyUrl';
 import saveImage from '../utils/saveImage';
-
-const weather = ((await getWeather()) as string).toLowerCase();
+import { useEffect, useState } from 'react';
 
 const Modal = () => {
-  const { description, ...restProps } = weatherList[weather] || {};
-  const luck = checkTodayLuck();
+  const [description, setDescription] = useState('');
+  const [image, setImage] = useState({ src: '', alt: '' });
+  const [luck, setLuck] = useState('');
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const weather = ((await getWeather()) as string).toLowerCase();
+      const { imageSrc, imageAlt, description } = weatherList[weather] || {};
+      setDescription(description || '');
+      setImage({ src: imageSrc || '', alt: imageAlt || '' });
+      setLuck(checkTodayLuck());
+    };
+    fetchData();
+  }, []);
 
   return (
     <ModalStyled>
-      <Header {...restProps} />
+      <Header imageSrc={image.src} imageAlt={image.alt} />
       <p>
         <span>[오늘의 날씨]</span>
         <span className="description">{description}</span>
