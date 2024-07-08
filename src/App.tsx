@@ -4,6 +4,8 @@ import Button from './components/Button';
 import Modal from './components/Modal';
 import { useRef, useState } from 'react';
 import { findLocation } from './utils/getWeather';
+import Layout from './components/Layout';
+import { isBrowser } from 'react-device-detect';
 
 const App = () => {
   const [isOpenModal, setIsOpenModal] = useState(false);
@@ -30,6 +32,7 @@ const App = () => {
           </Button>
         </MainContentStyled>
       </MainStyled>
+      {isBrowser ? <Layout /> : null}
     </>
   );
 };
@@ -53,7 +56,6 @@ const MainStyled = styled.main`
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: var(--ivory);
 `;
 
 const MainContentStyled = styled.section`
