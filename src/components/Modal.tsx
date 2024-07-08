@@ -1,43 +1,23 @@
 import styled from '@emotion/styled';
-import { useLocation } from 'react-router-dom';
+import Header from './Header';
+import Button from './Button';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCamera, faShare } from '@fortawesome/free-solid-svg-icons';
 import { getWeather } from '../utils/getWeather';
-import { weatherInfo } from '../utils/weatherInfo';
-import copyUrl from '../utils/copyUrl';
-import HiddenComponent from './HiddenComponent';
-import Button from './Button';
-import saveImage from '../utils/saveImage';
+import { weatherList } from '../utils/weatherList';
 import { checkTodayLuck } from '../utils/todayLuck';
-import { getDate } from '../utils/getToday';
+import copyUrl from '../utils/copyUrl';
+import saveImage from '../utils/saveImage';
 
-const weather = (await getWeather()).toLowerCase();
+const weather = ((await getWeather()) as string).toLowerCase();
 
 const Modal = () => {
-  const { description, ...restProps } = weatherInfo[weather] || {};
-  const location = useLocation();
-  const dateData = getDate();
-
-  const clickCopyButton = () =>
-    copyUrl(`http://localhost:5173${location.pathname}`);
-
-  const clickSaveButton = () => saveImage();
-
+  const { description, ...restProps } = weatherList[weather] || {};
   const luck = checkTodayLuck();
 
   return (
     <ModalStyled>
-      <h2>
-        <span>{dateData.year}</span>
-        <b>년</b>
-        <span>{dateData.month}</span>
-        <b>월</b>
-        <span>{dateData.date}</span>
-        <b>일</b>
-        <span>{dateData.day}</span>
-        <b>요일</b>
-        <HiddenComponent {...restProps} />
-      </h2>
+      <Header {...restProps} />
       <p>
         <span>[오늘의 날씨]</span>
         <span className="description">{description}</span>
@@ -47,11 +27,11 @@ const Modal = () => {
         <span className="description">{luck}</span>
       </p>
       <div className="button-cover">
-        <Button target="modal" clickHandler={clickCopyButton}>
+        <Button target="modal" clickHandler={copyUrl}>
           <FontAwesomeIcon icon={faShare} />
           공유하기
         </Button>
-        <Button target="modal" clickHandler={clickSaveButton}>
+        <Button target="modal" clickHandler={saveImage}>
           <FontAwesomeIcon icon={faCamera} />
           저장하기
         </Button>
@@ -74,18 +54,6 @@ const ModalStyled = styled.dialog`
   gap: 32px;
   background-color: var(--ivory);
   z-index: 10;
-  h2 {
-    width: 100%;
-    display: flex;
-    padding-top: 8px;
-    font-size: 26px;
-    b {
-      margin-right: 4px;
-    }
-  }
-  img {
-    height: 24px;
-  }
   .description {
     display: block;
     margin-top: 4px;

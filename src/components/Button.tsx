@@ -40,4 +40,7 @@ const ButtonStyled = styled.button<{ colorType: string[] }>`
   &:hover {
     border: 2px dashed ${(props) => `var(${props.colorType[1]})`};
   }
+  &:focus {
+    outline: 2px auto -webkit-focus-ring-color;
+  }
 `;

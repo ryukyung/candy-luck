@@ -23,8 +23,7 @@ const getLocation: TGetLocation = async (lat, lon) => {
   const API_URL = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}&lang=ko`;
   const respone = await fetch(API_URL);
   if (!respone.ok) throw new Error('Failed to fetch weather data');
-  const weatherData = await respone.json();
-  return weatherData;
+  return await respone.json();
 };
 
 export const getWeather: TGetWeather = async () => {
@@ -32,8 +31,7 @@ export const getWeather: TGetWeather = async () => {
     const position = await findLocation();
     const { latitude, longitude } = position.coords;
     const weather = await getLocation(latitude, longitude);
-    const nowWeather = weather.weather[0].main;
-    return nowWeather;
+    return weather.weather[0].main;
   } catch (error) {
     console.error('Error getting location or weather:', error);
   }

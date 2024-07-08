@@ -4,13 +4,16 @@ import Button from './components/Button';
 import Modal from './components/Modal';
 import { useRef, useState } from 'react';
 import { findLocation } from './utils/getWeather';
+import Layout from './components/Layout';
+import { isBrowser } from 'react-device-detect';
+
 const App = () => {
   const [isOpenModal, setIsOpenModal] = useState(false);
-  const logoRef = useRef(null);
+  const logoRef = useRef<(callback: () => void) => void>(null);
   const clickHandler = async () => {
     try {
       await findLocation();
-      if (logoRef.current) logoRef.current(() => setIsOpenModal(true));
+      if (logoRef.current) logoRef?.current(() => setIsOpenModal(true));
     } catch (error) {
       console.error(`Error getting location: ${error}`);
     }
@@ -20,15 +23,16 @@ const App = () => {
     <>
       <MainStyled id="download">
         {isOpenModal && <Modal />}
-        {isOpenModal && <ModalBg />}
+        {isOpenModal && <ModalBg onClick={() => setIsOpenModal(false)} />}
         <MainContentStyled>
-          <h1>Candy Luck</h1>
+          <h1 lang="en">Candy Luck</h1>
           <Logo ref={logoRef} />
           <Button target="main" clickHandler={clickHandler}>
             뽑기
           </Button>
         </MainContentStyled>
       </MainStyled>
+      {isBrowser ? <Layout /> : null}
     </>
   );
 };
@@ -52,7 +56,6 @@ const MainStyled = styled.main`
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: var(--ivory);
 `;
 
 const MainContentStyled = styled.section`

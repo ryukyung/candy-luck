@@ -3,12 +3,13 @@ import gsap from 'gsap';
 import styled from '@emotion/styled';
 import selectClassElement from '../utils/selectClassElement';
 
-const Logo = forwardRef((props, ref) => {
+const Logo = forwardRef((_, ref) => {
   const leverRef = useRef(null);
 
   useImperativeHandle(ref, () => clickHandlerLogo);
 
-  const clickHandlerLogo = (callback) => {
+  const clickHandlerLogo = (callback: () => void) => {
+    console.log('callback', callback);
     gsap.fromTo(
       leverRef.current,
       {
