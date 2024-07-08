@@ -21,7 +21,7 @@ const App = () => {
     <>
       <MainStyled id="download">
         {isOpenModal && <Modal />}
-        {isOpenModal && <ModalBg />}
+        {isOpenModal && <ModalBg onClick={() => setIsOpenModal(false)} />}
         <MainContentStyled>
           <h1 lang="en">Candy Luck</h1>
           <Logo ref={logoRef} />
