@@ -22,7 +22,5 @@ export const setLuck = () => {
 
 export const checkTodayLuck = () => {
   const isExistLuck = getStorage('luck');
-  if (!isExistLuck) return setLuck();
-
   return isExistLuck.date === makeDateFormat() ? isExistLuck.luck : setLuck();
 };
