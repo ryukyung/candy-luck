@@ -1,12 +1,11 @@
-import { luckList } from '../data/luckList.json';
+import callAI from './api';
 import { makeDateFormat } from './getToday';
 import { getStorage, setStorage } from './storage';
 
-export const getLuck = () => {
-  const randomNumber = Math.floor(Math.random() * 100);
+export const getLuck = async () => {
   const data = {
     date: makeDateFormat(),
-    luck: luckList[randomNumber],
+    luck: await callAI(),
   };
   setStorage('luck', data);
   return data.luck;
@@ -20,7 +19,8 @@ export const setLuck = () => {
   setStorage('luck', data);
 };
 
-export const checkTodayLuck = () => {
+export const checkTodayLuck = async () => {
   const isExistLuck = getStorage('luck');
+  if (!isExistLuck) return await getLuck();
   return isExistLuck.date === makeDateFormat() ? isExistLuck.luck : setLuck();
 };
