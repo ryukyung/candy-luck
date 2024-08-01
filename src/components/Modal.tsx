@@ -21,7 +21,7 @@ const Modal = () => {
       const { imageSrc, imageAlt, description } = weatherList[weather] || {};
       setDescription(description || '');
       setImage({ src: imageSrc || '', alt: imageAlt || '' });
-      setLuck(checkTodayLuck());
+      setLuck(await checkTodayLuck());
     };
     fetchData();
   }, []);
