@@ -1,15 +1,23 @@
+import { useRef, useState, useEffect } from 'react';
 import styled from '@emotion/styled';
+import Layout from './components/Layout';
 import Logo from './components/Logo';
 import Button from './components/Button';
 import Modal from './components/Modal';
-import { useRef, useState } from 'react';
-import { findLocation } from './utils/getWeather';
-import Layout from './components/Layout';
+import { findLocation, getWeather } from './utils/getWeather';
+import { weatherList } from './utils/weatherList';
+import { checkTodayLuck } from './utils/todayLuck';
 import { isBrowser } from 'react-device-detect';
 
 const App = () => {
-  const [isOpenModal, setIsOpenModal] = useState(false);
   const logoRef = useRef<(callback: () => void) => void>(null);
+  const [isOpenModal, setIsOpenModal] = useState(false);
+  const [modalInfo, setModalInfo] = useState({
+    src: '',
+    desc: '',
+    luck: '',
+  });
+
   const clickHandler = async () => {
     try {
       await findLocation();
@@ -19,10 +27,24 @@ const App = () => {
     }
   };
 
+  useEffect(() => {
+    const fetchData = async () => {
+      const weather = ((await getWeather()) as string).toLowerCase();
+      const luck = await checkTodayLuck();
+      const { src, desc } = weatherList[weather] || {};
+      setModalInfo({
+        src: src || '',
+        desc: desc || '',
+        luck: luck || '',
+      });
+    };
+    fetchData();
+  }, []);
+
   return (
     <>
       <MainStyled id="download">
-        {isOpenModal && <Modal />}
+        {isOpenModal && <Modal {...modalInfo} />}
         {isOpenModal && <ModalBg onClick={() => setIsOpenModal(false)} />}
         <MainContentStyled>
           <h1 lang="en">Candy Luck</h1>

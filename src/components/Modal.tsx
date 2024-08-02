@@ -1,37 +1,26 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCamera, faShare } from '@fortawesome/free-solid-svg-icons';
 import styled from '@emotion/styled';
 import Header from './Header';
 import Button from './Button';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCamera, faShare } from '@fortawesome/free-solid-svg-icons';
-import { getWeather } from '../utils/getWeather';
-import { weatherList } from '../utils/weatherList';
-import { checkTodayLuck } from '../utils/todayLuck';
 import copyUrl from '../utils/copyUrl';
 import saveImage from '../utils/saveImage';
-import { useEffect, useState } from 'react';
 
-const Modal = () => {
-  const [description, setDescription] = useState('');
-  const [image, setImage] = useState({ src: '', alt: '' });
-  const [luck, setLuck] = useState('');
+type TModalProps = {
+  src: string;
+  desc: string;
+  luck: string;
+};
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const weather = ((await getWeather()) as string).toLowerCase();
-      const { imageSrc, imageAlt, description } = weatherList[weather] || {};
-      setDescription(description || '');
-      setImage({ src: imageSrc || '', alt: imageAlt || '' });
-      setLuck(await checkTodayLuck());
-    };
-    fetchData();
-  }, []);
+const Modal = (props: TModalProps) => {
+  const { src, desc, luck } = props;
 
   return (
     <ModalStyled>
-      <Header imageSrc={image.src} imageAlt={image.alt} />
+      <Header imageSrc={src} imageAlt="" />
       <p>
         <span>[오늘의 날씨]</span>
-        <span className="description">{description}</span>
+        <span className="description">{desc}</span>
       </p>
       <p>
         <span>[오늘의 운세]</span>
