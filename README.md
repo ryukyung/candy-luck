@@ -20,11 +20,17 @@
 - 2024.06.05 - 2024.08.02
 
 ### 🍬 Feature
+- 데스크탑
 
-| 메인화면 | 모달 | 
-| :----: | :----: |
-| <img src='https://github.com/user-attachments/assets/7cfbffcf-0c93-4de1-8a98-9c46d494cea8' /> | <img src='https://github.com/user-attachments/assets/5d5fad7f-21f8-43ad-bf7b-b56e212a44fc' /> |
+  | 메인화면 | 모달 | 저장한 이미지 |
+  | :----: | :----: | :----: |
+  | <img alt="메인화면" src="https://github.com/user-attachments/assets/1dfcd0db-a479-40f4-8d44-eb86baa9b50f" /> | <img alt="모달" src="https://github.com/user-attachments/assets/c09b8c6d-94d5-4963-8814-0973770011e8" /> | <img alt="저장된 이미지" src="https://github.com/user-attachments/assets/ad079099-7173-458c-87b4-43eddd02222e" /> |
 
+- 모바일
+
+  | 메인화면 | 모달 | 저장한 이미지 |
+  | :----: | :----: | :----: |
+  | <img alt="메인화면" src="https://github.com/user-attachments/assets/a5fe4e68-abf6-4515-a7cc-2f3f76b982b2" /> | <img alt="모달" src="https://github.com/user-attachments/assets/5e42b638-5ba7-417f-ac86-699c699a77e4" /> | <img alt="저장된 이미지" src="https://github.com/user-attachments/assets/73923305-7da9-4002-b3ac-b968d733840b" /> |
 
 - 인터랙티브 애니메이션
   - GSAP 기반의 사탕 뽑기 기계 로딩 애니메이션
